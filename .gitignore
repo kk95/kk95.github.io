@@ -1,0 +1,10 @@
+node_modules
+.nuxt
+.output
+dist
+.data
+.env*
+.DS_Store
+# Maps repos to projects; repo names include client names, so it stays local.
+scripts/projects.local.json
+.claude/lessons.md
