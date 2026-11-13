@@ -1,0 +1,81 @@
+{
+  "reposDir": "~/Documents/github",
+  "authors": [
+    "kkarke@spillcenter.com",
+    "kshitijkarke@gmail.com"
+  ],
+  "projects": [
+    {
+      "id": "voice",
+      "label": "AI voice intake platform",
+      "kind": "work",
+      "repos": [
+        "repo-a",
+        "repo-b"
+      ]
+    },
+    {
+      "id": "review",
+      "label": "AI code review and team AI setup",
+      "kind": "work",
+      "repos": [
+        "repo-a",
+        "repo-b"
+      ]
+    },
+    {
+      "id": "ops",
+      "label": "Operations platform",
+      "kind": "work",
+      "repos": [
+        "repo-a",
+        "repo-b"
+      ]
+    },
+    {
+      "id": "clients",
+      "label": "Client web apps",
+      "kind": "work",
+      "repos": [
+        "repo-a",
+        "repo-b"
+      ]
+    },
+    {
+      "id": "services",
+      "label": "Internal services",
+      "kind": "work",
+      "repos": [
+        "repo-a",
+        "repo-b"
+      ]
+    },
+    {
+      "id": "beer",
+      "label": "It's Beer O'Clock Somewhere",
+      "kind": "side",
+      "repos": [
+        "repo-a",
+        "repo-b"
+      ]
+    },
+    {
+      "id": "strch",
+      "label": "strch",
+      "kind": "side",
+      "repos": [
+        "repo-a",
+        "repo-b"
+      ]
+    },
+    {
+      "id": "side",
+      "label": "Other side projects",
+      "kind": "side",
+      "repos": [
+        "repo-a",
+        "repo-b"
+      ]
+    }
+  ]
+}
