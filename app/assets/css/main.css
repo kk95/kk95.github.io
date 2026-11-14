@@ -43,16 +43,63 @@ p { margin: 0 0 1rem; }
 }
 .js .reveal.is-visible { opacity: 1; transform: none; }
 
-/* Links: a faint resting underline that fills in from the left on hover. */
+/* Hover reactions borrowed from Gris (video timestamps from "The Animation in Gris").
+   Each one has a different leave than enter, the way Gris's trees appear and
+   disappear with two different animations (7:07). */
+
+/* Links (5:27 follow-through, 9:18 ink tapering like smoke): a yellow stroke sweeps
+   in, a thinner red one follows and overshoots; on leave both keep moving right and taper. */
 a {
-  text-decoration: none;
-  background-image: linear-gradient(currentColor, currentColor), linear-gradient(color-mix(in srgb, currentColor 30%, transparent), color-mix(in srgb, currentColor 30%, transparent));
-  background-size: 0 1.5px, 100% 1px;
-  background-position: 0 100%, 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size 0.35s var(--ease-out), color 0.2s;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+  text-underline-offset: 4px;
+  transition: color 0.2s, text-decoration-color 0.2s;
 }
-a:hover { background-size: 100% 1.5px, 100% 1px; }
+:is(.content, .rail) a:not(nav a) { position: relative; }
+:is(.content, .rail) a:not(nav a):hover { text-decoration-color: transparent; }
+:is(.content, .rail) a:not(nav a)::before,
+:is(.content, .rail) a:not(nav a)::after {
+  content: ''; position: absolute; left: 0; right: 0; border-radius: 2px; pointer-events: none;
+  transform: scale(0, 0.3); transform-origin: right;
+}
+:is(.content, .rail) a:not(nav a)::before { bottom: -3px; height: 2px; background: var(--blob-1); transition: transform 260ms ease-in; }
+:is(.content, .rail) a:not(nav a)::after { bottom: -6px; height: 1px; background: var(--blob-2); transition: transform 300ms ease-in 40ms; }
+:is(.content, .rail) a:not(nav a):hover::before { transform: none; transform-origin: left; transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1); }
+:is(.content, .rail) a:not(nav a):hover::after { transform: none; transform-origin: left; transition: transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1) 55ms; }
+
+/* Cards the ink bird flies over (9:18-9:50, the inky beast's "gaping distortions"
+   that linger): a ragged ink stain blooms under the bird and follows it, the card
+   leans away a touch, and the stain fades slowly after the bird leaves.
+   The bird's position comes from InkBird.vue as --ix/--iy (px) and --tx/--ty (-1 to 1). */
+.ink-react { position: relative; isolation: isolate; }
+.ink-react::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(circle 150px at var(--ix, 50%) var(--iy, 50%), color-mix(in srgb, var(--blob-2) 20%, transparent), color-mix(in srgb, var(--blob-1) 8%, transparent) 45%, transparent 72%);
+  filter: url(#ink-edge);
+  clip-path: inset(0 round 12px);
+  opacity: 0; transition: opacity 1.2s ease-out;
+}
+.ink-react.inked::before { opacity: 1; transition: opacity 0.25s ease-out; }
+
+/* Chips (1:05 bright hues bleeding into dark, 7:29 splashes that linger): a yellow
+   wash blooms from where the pointer entered; on leave it snaps out and a red stain
+   spreads and fades a little later. */
+.chips li { position: relative; overflow: hidden; isolation: isolate; }
+.chips li::before, .chips li::after {
+  content: ''; position: absolute; z-index: -1; left: var(--x, 50%); top: var(--y, 50%);
+  width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%; pointer-events: none; opacity: 0;
+}
+.chips li::before { background: radial-gradient(closest-side, color-mix(in srgb, var(--blob-1) 50%, transparent), transparent); transform: scale(0.2); transition: opacity 140ms, transform 140ms; }
+.chips li::after { background: radial-gradient(closest-side, color-mix(in srgb, var(--blob-2) 40%, transparent), transparent); transform: scale(1.5); transition: opacity 550ms ease-out, transform 550ms ease-out; }
+.chips li:hover::before { opacity: 1; transform: scale(1); transition: opacity 280ms cubic-bezier(0.25, 1, 0.5, 1), transform 280ms cubic-bezier(0.25, 1, 0.5, 1); }
+.chips li:hover::after { opacity: 1; transform: scale(1); transition: opacity 320ms, transform 320ms cubic-bezier(0.25, 1, 0.5, 1); }
+
+/* Touch screens get none of the hover reactions. */
+@media (hover: none) {
+  .ink-react::before, .chips li::before, .chips li::after,
+  :is(.content, .rail) a:not(nav a)::before, :is(.content, .rail) a:not(nav a)::after { display: none; }
+}
 
 .card-lift { transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s; }
 .card-lift:hover {
@@ -63,6 +110,12 @@ a:hover { background-size: 100% 1.5px, 100% 1px; }
 
 /* Once a card has revealed, hover uses the quicker card timing, not the reveal's. */
 .js .reveal.is-visible.card-lift { transition: opacity 0.7s var(--ease-out), transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s; transition-delay: 0ms; }
+/* The bird's tilt wins over the plain hover lift and the reveal's resting state
+   (see .ink-react above), hence the doubled class. */
+.js .ink-react.ink-react.inked {
+  transform: perspective(900px) rotateX(calc(var(--ty, 0) * -2.5deg)) rotateY(calc(var(--tx, 0) * 2.5deg)) translateY(-2px);
+  border-color: color-mix(in srgb, var(--blob-2) 40%, var(--line));
+}
 
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
 

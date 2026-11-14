@@ -22,16 +22,13 @@ export const leadProjects: LeadProject[] = [
     why: 'I built it nearly solo, from the first commit to production-ready in under a year.',
     dates: 'Nov 2025 – now',
     stack: ['Nuxt 4', 'PostgreSQL', 'Cognito', 'Twilio', 'ElevenLabs', 'Postmark', 'Playwright'],
-    stats: [
-      { value: '99 of 110', label: 'merged PRs authored' },
-      { value: '< 1 year', label: 'first commit to production-ready' },
-    ],
+    stats: [],
     features: [
       { title: 'Agents from forms, not prompts', body: 'Customers build branching intake forms, and the form generates the agent\'s prompt and its data-collection fields. Per-agent LLM settings ship with leak-safe defaults.' },
       { title: 'Calls end to end', body: 'Twilio number management and voice webhooks, ElevenLabs agent sync, post-call webhooks pinned to their environment, and transfers to verified numbers that dial first and bridge on answer.' },
       { title: 'After the call', body: 'Intake history with transcript, audio playback and a timeline. Alert groups with encrypted recipient details email the right people, including partial intakes from transferred calls.' },
       { title: 'Organizations and access', body: 'Organizations, owner, admin and member roles, invites, route-level permissions, and Cognito auth with a signup gate for the pilot.' },
-      { title: 'Product shape', body: 'Reworked the information architecture in 8 PRs in one day: three core dashboard actions, call activity analytics, and one home for org settings.' },
+      { title: 'Product shape', body: 'Reworked the information architecture around three core dashboard actions, call activity analytics, and one home for org settings.' },
     ],
   },
   {
