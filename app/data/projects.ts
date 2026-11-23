@@ -40,8 +40,6 @@ export const leadProjects: LeadProject[] = [
     stack: ['Anthropic SDK', 'GitHub Actions', 'GitHub App', 'TypeScript'],
     stats: [
       { value: '6', label: 'company repos use it' },
-      { value: '43% → 64%', label: 'thumbs-up in 3 months' },
-      { value: '~$0.19', label: 'per review' },
     ],
     features: [
       { title: 'Reviewer, judge, learner', body: 'A reviewer agent drafts findings, a judge filters the noise, and after merge a learner reads what human reviewers said.' },
