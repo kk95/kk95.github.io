@@ -68,20 +68,6 @@ a {
 :is(.content, .rail) a:not(nav a):hover::before { transform: none; transform-origin: left; transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1); }
 :is(.content, .rail) a:not(nav a):hover::after { transform: none; transform-origin: left; transition: transform 380ms cubic-bezier(0.34, 1.56, 0.64, 1) 55ms; }
 
-/* Cards the ink bird flies over (9:18-9:50, the inky beast's "gaping distortions"
-   that linger): a ragged ink stain blooms under the bird and follows it, the card
-   leans away a touch, and the stain fades slowly after the bird leaves.
-   The bird's position comes from InkBird.vue as --ix/--iy (px) and --tx/--ty (-1 to 1). */
-.ink-react { position: relative; isolation: isolate; }
-.ink-react::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(circle 150px at var(--ix, 50%) var(--iy, 50%), color-mix(in srgb, var(--blob-2) 20%, transparent), color-mix(in srgb, var(--blob-1) 8%, transparent) 45%, transparent 72%);
-  filter: url(#ink-edge);
-  clip-path: inset(0 round 12px);
-  opacity: 0; transition: opacity 1.2s ease-out;
-}
-.ink-react.inked::before { opacity: 1; transition: opacity 0.25s ease-out; }
-
 /* Chips (1:05 bright hues bleeding into dark, 7:29 splashes that linger): a yellow
    wash blooms from where the pointer entered; on leave it snaps out and a red stain
    spreads and fades a little later. */
@@ -97,7 +83,7 @@ a {
 
 /* Touch screens get none of the hover reactions. */
 @media (hover: none) {
-  .ink-react::before, .chips li::before, .chips li::after,
+  .chips li::before, .chips li::after,
   :is(.content, .rail) a:not(nav a)::before, :is(.content, .rail) a:not(nav a)::after { display: none; }
 }
 
@@ -110,12 +96,6 @@ a {
 
 /* Once a card has revealed, hover uses the quicker card timing, not the reveal's. */
 .js .reveal.is-visible.card-lift { transition: opacity 0.7s var(--ease-out), transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out), border-color 0.35s; transition-delay: 0ms; }
-/* The bird's tilt wins over the plain hover lift and the reveal's resting state
-   (see .ink-react above), hence the doubled class. */
-.js .ink-react.ink-react.inked {
-  transform: perspective(900px) rotateX(calc(var(--ty, 0) * -2.5deg)) rotateY(calc(var(--tx, 0) * 2.5deg)) translateY(-2px);
-  border-color: color-mix(in srgb, var(--blob-2) 40%, var(--line));
-}
 
 @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
 

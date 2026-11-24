@@ -26,8 +26,6 @@ const glance = [
 // scrolls away, a sidebar slides in on the left and the content shifts right.
 const DOCK_MIN_WIDTH = 1000
 const hero = ref<HTMLElement>()
-const heroName = ref<HTMLElement>()
-const railName = ref<HTMLElement>()
 const docked = ref(false)
 // Narrower screens get a slim sticky bar instead, once the header scrolls away.
 const showBar = ref(false)
@@ -65,8 +63,6 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="page" :class="{ docked }">
-    <InkBird :home="docked ? railName : heroName" />
-
     <div class="phone-bar" :class="{ show: showBar }" :inert="!showBar">
       <a href="#about" class="bar-name">
         <img src="/images/kk-headshot.jpg" alt="" width="32" height="32">
@@ -84,7 +80,7 @@ onBeforeUnmount(() => {
           <img src="/images/kk-headshot.jpg" alt="" width="480" height="480">
         </picture>
       </div>
-      <p ref="railName" class="rail-name">Kshitij "KK" Karke</p>
+      <p class="rail-name">Kshitij "KK" Karke</p>
       <p class="role">Software engineer at Spill Center</p>
       <p class="tagline muted">AI products and the internal tools around them.</p>
       <nav aria-label="Sections">
@@ -101,7 +97,7 @@ onBeforeUnmount(() => {
         <div class="hero-top">
           <div>
             <p class="eyebrow mono">Software engineer · Spill Center · since 2019</p>
-            <h1 ref="heroName">Kshitij "KK" Karke</h1>
+            <h1>Kshitij "KK" Karke</h1>
           </div>
           <div class="avatar">
             <picture>
@@ -113,7 +109,7 @@ onBeforeUnmount(() => {
         <p class="lede">I build AI products and the internal tools around them, end to end, working agent-first in Claude Code.</p>
         <p class="glance-label mono">Recently built</p>
         <ul class="glance">
-          <li v-for="g in glance" :key="g.title" class="ink-react">
+          <li v-for="g in glance" :key="g.title">
             <strong>{{ g.title }}</strong>
             <span>{{ g.body }}</span>
             <small class="mono">{{ g.project }}</small>
@@ -151,7 +147,7 @@ onBeforeUnmount(() => {
         <h2 v-reveal>Selected work</h2>
         <LeadProject v-for="p in leadProjects" :key="p.id" :project="p" />
         <ul class="small-grid">
-          <li v-for="(w, i) in moreWork" :key="w.name" v-reveal="i * 90" class="small card-lift ink-react">
+          <li v-for="(w, i) in moreWork" :key="w.name" v-reveal="i * 90" class="small card-lift">
             <h3>{{ w.name }}</h3>
             <p>{{ w.body }}</p>
             <span class="mono muted">{{ w.meta }}</span>
@@ -167,7 +163,7 @@ onBeforeUnmount(() => {
       <section id="side-projects">
         <h2 v-reveal>Side projects</h2>
         <ul class="small-grid two">
-          <li v-for="(s, i) in sideProjects" :key="s.name" v-reveal="i * 90" class="small card-lift ink-react">
+          <li v-for="(s, i) in sideProjects" :key="s.name" v-reveal="i * 90" class="small card-lift">
             <h3>{{ s.name }}</h3>
             <p>{{ s.body }}</p>
             <span class="mono muted">{{ s.meta }}</span>
@@ -208,7 +204,6 @@ onBeforeUnmount(() => {
    docks, then moves right to make room for the 260px rail plus a 56px gap. */
 .page { --rail: 260px; --gap: 56px; --col: 800px; max-width: 1240px; margin: 0 auto; padding: 0 32px 96px; }
 .content {
-  position: relative; z-index: 1;
   width: min(100%, var(--col));
   margin-left: calc((100% - min(100%, var(--col))) / 2);
   transition: margin-left 0.7s var(--ease-out), width 0.7s var(--ease-out);

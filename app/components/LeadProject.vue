@@ -7,7 +7,7 @@ const expanded = ref(false)
 </script>
 
 <template>
-  <article v-reveal class="lead card-lift ink-react">
+  <article v-reveal class="lead card-lift">
     <header>
       <div class="title-row">
         <h3>{{ project.name }}</h3>
