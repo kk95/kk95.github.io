@@ -43,7 +43,7 @@ export const leadProjects: LeadProject[] = [
     ],
     features: [
       { title: 'Reviewer, judge, learner', body: 'A reviewer agent drafts findings, a judge filters the noise, and after merge a learner reads what human reviewers said.' },
-      { title: 'Per-repo memory', body: 'Settled decisions and false-positive patterns are committed to each repo with confidence scores, so it stops flagging the same thing twice.' },
+      { title: 'Per-repo memory', body: 'Settled decisions and false-positive patterns are saved per repo with confidence scores, so the judge can filter out repeat noise.' },
       { title: 'Knows the ticket', body: 'Pulls the linked ClickUp task into the review, so findings are checked against what the change was for.' },
       { title: 'Runs when asked', body: 'An opt-in /review comment replaced review on every push, which keeps PR threads quiet.' },
       { title: 'Model per agent', body: 'Each agent has its own Claude model setting, so a model upgrade can roll out one agent at a time.' },
