@@ -3,18 +3,19 @@
 
 export interface Feature { title: string, body: string }
 export interface Stat { value: string, label: string }
-export interface LeadProject {
+export interface WorkProject {
   id: string
   name: string
   pitch: string
-  why: string
+  why?: string
   dates: string
   stack: string[]
-  stats: Stat[]
-  features: Feature[]
+  stats?: Stat[]
+  features?: Feature[]
 }
 
-export const leadProjects: LeadProject[] = [
+// Shown in this order, AI work first.
+export const workProjects: WorkProject[] = [
   {
     id: 'voice',
     name: 'AI voice intake platform',
@@ -22,7 +23,6 @@ export const leadProjects: LeadProject[] = [
     why: 'I built it nearly solo, from the first commit to production-ready in under a year.',
     dates: 'Nov 2025 – now',
     stack: ['Nuxt 4', 'PostgreSQL', 'Cognito', 'Twilio', 'ElevenLabs', 'Postmark', 'Playwright'],
-    stats: [],
     features: [
       { title: 'Agents from forms, not prompts', body: 'Customers build branching intake forms, and the form generates the agent\'s prompt and its data-collection fields. Per-agent LLM settings ship with leak-safe defaults.' },
       { title: 'Calls end to end', body: 'Twilio number management and voice webhooks, ElevenLabs agent sync, post-call webhooks pinned to their environment, and transfers to verified numbers that dial first and bridge on answer.' },
@@ -49,15 +49,30 @@ export const leadProjects: LeadProject[] = [
       { title: 'Model per agent', body: 'Each agent has its own Claude model setting, so a model upgrade can roll out one agent at a time.' },
     ],
   },
+  {
+    id: 'invoice',
+    name: 'AI invoice scanner',
+    pitch: 'Extracts structured line items from vendor invoices with OpenAI vision. Ops uses it daily, with 2,500+ line items parsed.',
+    dates: '2025 – now',
+    stack: ['Vue 3', 'OpenAI'],
+  },
+  {
+    id: 'ai-setup',
+    name: 'Team AI setup',
+    pitch: 'Shared guardrails, workflows and starter files that engineers opt into from their own AI coding tool.',
+    dates: 'Nov 2026 – now',
+    stack: ['Claude Code', 'AGENTS.md', 'Hooks'],
+  },
+  {
+    id: 'ops',
+    name: 'Operations platform',
+    pitch: 'Spill Center\'s main operations app. I built its operations communication system and have worked across it since 2019.',
+    dates: '2019 – now',
+    stack: ['Node', 'Express', 'Vue', 'MySQL'],
+  },
 ]
 
 export interface SmallProject { name: string, body: string, meta: string, link?: { href: string, label: string } }
-
-export const moreWork: SmallProject[] = [
-  { name: 'AI invoice scanner', body: 'Extracts structured line items from vendor invoices with OpenAI vision. Ops uses it daily, with 2,500+ line items parsed.', meta: 'Vue 3 · OpenAI' },
-  { name: 'Operations platform', body: 'Spill Center\'s main operations app. I built its operations communication system and have worked across it since 2019.', meta: 'Node · Express · Vue · MySQL' },
-  { name: 'Team AI setup', body: 'Shared guardrails, workflows and starter files that engineers opt into from their own AI coding tool.', meta: 'Claude Code' },
-]
 
 export const sideProjects: SmallProject[] = [
   {

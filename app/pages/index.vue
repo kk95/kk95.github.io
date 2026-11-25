@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { leadProjects, milestones, moreWork, service, sideProjects, stack } from '~/data/projects'
+import { milestones, service, sideProjects, stack } from '~/data/projects'
 
 const nav = [
   { id: 'about', label: 'About' },
@@ -63,6 +63,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="page" :class="{ docked }">
+
     <div class="phone-bar" :class="{ show: showBar }" :inert="!showBar">
       <a href="#about" class="bar-name">
         <img src="/images/kk-headshot.jpg" alt="" width="32" height="32">
@@ -144,15 +145,7 @@ onBeforeUnmount(() => {
       </section>
 
       <section id="work">
-        <h2 v-reveal>Selected work</h2>
-        <LeadProject v-for="p in leadProjects" :key="p.id" :project="p" />
-        <ul class="small-grid">
-          <li v-for="(w, i) in moreWork" :key="w.name" v-reveal="i * 90" class="small card-lift">
-            <h3>{{ w.name }}</h3>
-            <p>{{ w.body }}</p>
-            <span class="mono muted">{{ w.meta }}</span>
-          </li>
-        </ul>
+        <WorkList />
       </section>
 
       <section id="contributions">

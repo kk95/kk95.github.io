@@ -81,6 +81,11 @@ a {
 .chips li:hover::before { opacity: 1; transform: scale(1); transition: opacity 280ms cubic-bezier(0.25, 1, 0.5, 1), transform 280ms cubic-bezier(0.25, 1, 0.5, 1); }
 .chips li:hover::after { opacity: 1; transform: scale(1); transition: opacity 320ms, transform 320ms cubic-bezier(0.25, 1, 0.5, 1); }
 
+/* Selected work rows start closed, but only once JS is on (set before first paint),
+   so the content stays readable without it and when printed. */
+.js .work-row:not([data-open]) .work-panel { grid-template-rows: 0fr; }
+@media print { .js .work-row:not([data-open]) .work-panel { grid-template-rows: 1fr; } }
+
 /* Touch screens get none of the hover reactions. */
 @media (hover: none) {
   .chips li::before, .chips li::after,
